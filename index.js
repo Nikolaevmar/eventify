@@ -23,10 +23,9 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
-app.get("/eventcreate", async (req, res) => {
-  const event = new Event({ title: "Japfest", description: "The best event" });
-  await event.save();
-  res.send(event);
+app.get("/events", async (req, res) => {
+  const events = await Event.find({});
+  res.render("events/index", { events });
 });
 
 app.listen(3000, () => {
