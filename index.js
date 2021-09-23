@@ -1,5 +1,7 @@
 const express = require("express");
+const path = require("path");
 const mongoose = require("mongoose");
+const Event = require("./models/event");
 
 mongoose.connect("mongodb://localhost:27017/eventify", {
   useNewUrlParser: true,
@@ -13,13 +15,18 @@ db.once("open", () => {
 });
 
 const app = express();
-const path = require("path");
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.get("/", (req, res) => {
   res.render("home");
+});
+
+app.get("/eventcreate", async (req, res) => {
+  const event = new Event({ title: "Japfest", description: "The best event" });
+  await event.save();
+  res.send(event);
 });
 
 app.listen(3000, () => {
