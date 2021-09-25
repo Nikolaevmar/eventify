@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
+const methodOverride = require("method-override");
 const Event = require("./models/event");
 
 mongoose.connect("mongodb://localhost:27017/eventify", {
@@ -20,6 +21,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
 
 app.get("/", (req, res) => {
   res.render("home");
@@ -43,6 +45,17 @@ app.post("/events", async (req, res) => {
 app.get("/events/:id", async (req, res) => {
   const event = await Event.findById(req.params.id);
   res.render("events/show", { event });
+});
+
+app.get("/events/:id/edit", async (req, res) => {
+  const event = await Event.findById(req.params.id);
+  res.render("events/edit", { event });
+});
+
+app.put("/events/:id", async (req, res) => {
+  const { id } = req.params;
+  const event = await Event.findByIdAndUpdate(id, { ...req.body.event });
+  res.redirect(`/events/${event._id}`);
 });
 
 app.listen(3000, () => {
