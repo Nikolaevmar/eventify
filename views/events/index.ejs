@@ -8,6 +8,9 @@
   </head>
   <body>
     <h1>All events</h1>
+    <div>
+      <a href="/events/new">Add an event</a>
+    </div>
     <ul>
       <% for(let event of events) {%>
       <li><a href="<%= event._id %>"><%= event.title %></a></li>

@@ -19,6 +19,8 @@ const app = express();
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+app.use(express.urlencoded({ extended: true }));
+
 app.get("/", (req, res) => {
   res.render("home");
 });
@@ -26,6 +28,16 @@ app.get("/", (req, res) => {
 app.get("/events", async (req, res) => {
   const events = await Event.find({});
   res.render("events/index", { events });
+});
+
+app.get("/events/new", (req, res) => {
+  res.render("events/new");
+});
+
+app.post("/events", async (req, res) => {
+  const event = new Event(req.body.event);
+  await event.save();
+  res.redirect(`/events/${event._id}`);
 });
 
 app.get("/events/:id", async (req, res) => {
