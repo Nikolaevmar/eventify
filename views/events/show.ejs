@@ -4,14 +4,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Events</title>
+    <title>Show</title>
   </head>
   <body>
-    <h1>All events</h1>
-    <ul>
-      <% for(let event of events) {%>
-      <li><a href="<%= event._id %>"><%= event.title %></a></li>
-      <%}%>
-    </ul>
+    <h1><%= event.title %></h1>
   </body>
 </html>

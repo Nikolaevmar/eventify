@@ -28,6 +28,11 @@ app.get("/events", async (req, res) => {
   res.render("events/index", { events });
 });
 
+app.get("/events/:id", async (req, res) => {
+  const event = await Event.findById(req.params.id);
+  res.render("events/show", { event });
+});
+
 app.listen(3000, () => {
   console.log("Listening on port 3000");
 });
