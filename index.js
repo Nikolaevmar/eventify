@@ -58,6 +58,12 @@ app.put("/events/:id", async (req, res) => {
   res.redirect(`/events/${event._id}`);
 });
 
+app.delete("/events/:id", async (req, res) => {
+  const { id } = req.params;
+  await Event.findByIdAndDelete(id);
+  res.redirect("/events");
+});
+
 app.listen(3000, () => {
   console.log("Listening on port 3000");
 });
