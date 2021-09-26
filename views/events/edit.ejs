@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Edit an event</title>
-  </head>
-  <body>
-    <h1>Edit an event</h1>
+<% layout('layouts/boilerplate') %>Edit an event</h1>
     <form action="/events/<%=event._id%>?_method=PUT" method="POST">
       <div>
         <label for="title">Title</label>
@@ -27,5 +21,3 @@
       <button>Update event</button>
     </form>
     <a href="/events/<%= event._id%>">Back to events</a>
-  </body>
-</html>

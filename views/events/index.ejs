@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Events</title>
-  </head>
-  <body>
+<% layout('layouts/boilerplate') %>
     <h1>All events</h1>
     <div>
       <a href="/events/new">Add an event</a>
@@ -13,5 +8,3 @@
       <li><a href="/events/<%= event._id %>"><%= event.title %></a></li>
       <%}%>
     </ul>
-  </body>
-</html>

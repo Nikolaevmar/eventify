@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>New event</title>
-  </head>
-  <body>
+<% layout('layouts/boilerplate') %>
     <form action="/events" method="POST">
       <div>
         <label for="title">Title</label>
@@ -16,5 +11,3 @@
       <button>Add event</button>
     </form>
     <a href="/events">Back to events</a>
-  </body>
-</html>
