@@ -2,7 +2,7 @@
 <div class="row">
   <h1 class="text-center">New Event</h1>
   <div class="col-6 offset-3">
-    <form action="/events" method="POST">
+    <form action="/events" method="POST" novalidate class="validated-form">
       <div class="mb-3">
         <label class="form-label" for="title">Event title</label>
         <input
@@ -10,7 +10,9 @@
           type="text"
           id="title"
           name="event[title]"
+          required
         />
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <label class="form-label" for="location">Location</label>
@@ -19,7 +21,9 @@
           type="text"
           id="location"
           name="event[location]"
+          required
         />
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <label class="form-label" for="image">Image URL</label>
@@ -28,7 +32,9 @@
           type="text"
           id="image"
           name="event[image]"
+          required
         />
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <label class="form-label" for="description">Description</label>
@@ -37,7 +43,9 @@
           type="text"
           id="description"
           name="event[description]"
+          required
         ></textarea>
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <label class="form-label" for="price">Ticket price</label>
@@ -51,12 +59,21 @@
             aria-label="price"
             aria-describedby="price-label"
             name="event[ticketPrice]"
+            required
           />
+          <div class="valid-feedback">Looks good!</div>
         </div>
       </div>
       <div class="mb-3">
         <label class="form-label" for="date">Date</label>
-        <input class="form-control" type="date" id="date" name="event[date]" />
+        <input
+          class="form-control"
+          type="date"
+          id="date"
+          name="event[date]"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
       </div>
       <div class="mb-3">
         <button class="btn btn-success">Add event</button>
@@ -67,3 +84,4 @@
     </form>
   </div>
 </div>
+
