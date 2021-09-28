@@ -8,6 +8,12 @@ const EventSchema = new Schema({
   ticketPrice: Number,
   date: String,
   location: String,
+  reviews: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Review",
+    },
+  ],
 });
 
 module.exports = mongoose.model("Event", EventSchema);
