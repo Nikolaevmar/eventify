@@ -8,18 +8,14 @@
 <div class="card" mb-3>
   <div class="row">
     <div class="col-md-4">
-      <img
-        class="img-fluid"
-        src="<%=event.image%>"
-        alt=""
-      />
+      <img class="img-fluid" src="<%=event.image%>" alt="" />
     </div>
     <div class="col-md-8">
       <div class="card-body">
         <h5 class="card-title"><%= event.title %></h5>
         <p class="card-text"><%= event.description %></p>
         <p class="card-text">
-          <small class="text-muted"><%= event.location %>></small>
+          <small class="text-muted"><%= event.location %></small>
         </p>
         <a class="btn btn-primary" href="/events/<%=event._id%>"
           >View <%=event.title %></a
