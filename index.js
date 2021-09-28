@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const ejsMate = require("ejs-mate");
+const catchAsync = require('./utilities/catchAsync')
 const methodOverride = require("method-override");
 const Event = require("./models/event");
 
@@ -29,42 +30,46 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
-app.get("/events", async (req, res) => {
+app.get("/events", catchAsync(async (req, res) => {
   const events = await Event.find({});
   res.render("events/index", { events });
-});
+}));
 
 app.get("/events/new", (req, res) => {
   res.render("events/new");
 });
 
-app.post("/events", async (req, res) => {
+app.post("/events", catchAsync(async (req, res) => {
   const event = new Event(req.body.event);
   await event.save();
   res.redirect(`/events/${event._id}`);
-});
+}));
 
-app.get("/events/:id", async (req, res) => {
+app.get("/events/:id", catchAsync(async (req, res) => {
   const event = await Event.findById(req.params.id);
   res.render("events/show", { event });
-});
+}));
 
-app.get("/events/:id/edit", async (req, res) => {
+app.get("/events/:id/edit", catchAsync(async (req, res) => {
   const event = await Event.findById(req.params.id);
   res.render("events/edit", { event });
-});
+}));
 
-app.put("/events/:id", async (req, res) => {
+app.put("/events/:id", catchAsync(async (req, res) => {
   const { id } = req.params;
   const event = await Event.findByIdAndUpdate(id, { ...req.body.event });
   res.redirect(`/events/${event._id}`);
-});
+}));
 
-app.delete("/events/:id", async (req, res) => {
+app.delete("/events/:id", catchAsync(async (req, res) => {
   const { id } = req.params;
   await Event.findByIdAndDelete(id);
   res.redirect("/events");
-});
+}));
+
+app.use((err, req,res , next) => {
+  res.send('Error, something went wrong.')
+})
 
 app.listen(3000, () => {
   console.log("Listening on port 3000");
