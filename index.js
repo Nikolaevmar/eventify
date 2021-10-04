@@ -42,7 +42,7 @@ const validateEvent = (req, res, next) => {
 const validateReview = (req, res, next) => {
   const { error } = reviewSchema.validate(req.body);
   if (error) {
-    const msg = error.details.map((el) => el.message).join(",");
+    const msg = error.details.map(el => el.message).join(",");
     throw new ExpressError(msg, 400);
   } else {
     next();
@@ -79,7 +79,7 @@ app.post(
 app.get(
   "/events/:id",
   catchAsync(async (req, res) => {
-    const event = await Event.findById(req.params.id);
+    const event = await Event.findById(req.params.id).populate("reviews");
     res.render("events/show", { event });
   })
 );
@@ -94,7 +94,7 @@ app.get(
 
 app.put(
   "/events/:id",
-  validateReview,
+  validateEvent,
   catchAsync(async (req, res) => {
     const { id } = req.params;
     const event = await Event.findByIdAndUpdate(id, { ...req.body.event });
@@ -113,7 +113,7 @@ app.delete(
 
 app.post(
   "/events/:id/reviews",
-  validateEvent,
+  validateReview,
   catchAsync(async (req, res) => {
     const event = await Event.findById(req.params.id);
     const review = new Review(req.body.review);

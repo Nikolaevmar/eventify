@@ -12,8 +12,8 @@ module.exports.eventSchema = Joi.object({
 });
 
 module.exports.reviewSchema = Joi.object({
-  reivew: Joi.object({
+  review: Joi.object({
     rating: Joi.number().required(),
-    body: Joi.string().required()
-  }).required()
-})
+    body: Joi.string().required(),
+  }).required(),
+});
