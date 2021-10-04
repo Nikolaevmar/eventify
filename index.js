@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const ejsMate = require("ejs-mate");
-const { eventSchema } = require("./validationSchemas/schemas.js");
+const { eventSchema, reviewSchema } = require("./validationSchemas/schemas.js");
 const ExpressError = require("./utilities/ExpressError");
 const catchAsync = require("./utilities/catchAsync");
 const methodOverride = require("method-override");
@@ -31,6 +31,16 @@ app.use(methodOverride("_method"));
 
 const validateEvent = (req, res, next) => {
   const { error } = eventSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(msg, 400);
+  } else {
+    next();
+  }
+};
+
+const validateReview = (req, res, next) => {
+  const { error } = reviewSchema.validate(req.body);
   if (error) {
     const msg = error.details.map((el) => el.message).join(",");
     throw new ExpressError(msg, 400);
@@ -84,7 +94,7 @@ app.get(
 
 app.put(
   "/events/:id",
-  validateEvent,
+  validateReview,
   catchAsync(async (req, res) => {
     const { id } = req.params;
     const event = await Event.findByIdAndUpdate(id, { ...req.body.event });
@@ -103,6 +113,7 @@ app.delete(
 
 app.post(
   "/events/:id/reviews",
+  validateEvent,
   catchAsync(async (req, res) => {
     const event = await Event.findById(req.params.id);
     const review = new Review(req.body.review);
