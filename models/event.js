@@ -16,4 +16,15 @@ const EventSchema = new Schema({
   ],
 });
 
+//Middleware to delete leftover reviews of deleted events.
+EventSchema.post("findOneAndDelete", async function (doc) {
+  if (doc) {
+    await Review.remove({
+      _id: {
+        $in: doc.reviews,
+      },
+    });
+  }
+});
+
 module.exports = mongoose.model("Event", EventSchema);

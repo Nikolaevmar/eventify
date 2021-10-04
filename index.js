@@ -124,6 +124,13 @@ app.post(
   })
 );
 
+app.delete('/events/:id/reviews/:reviewId', catchAsync(async(req,res)=>{
+  const {id, reviewId} = req.params;
+  await Event.findByIdAndUpdate(id, {$pull: {reviews: reviewId}})
+  await Review.findByIdAndDelete(reviewId);
+res.redirect(`/events/${id}`);
+}))
+
 app.all("*", (req, res, next) => {
   next(new ExpressError("Page not found!", 404));
 });
