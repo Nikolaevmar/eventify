@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utilities/ExpressError");
 const methodOverride = require("method-override");
+const session = require("express-session");
 
 const events = require("./routes/events");
 const reviews = require("./routes/reviews");
@@ -27,6 +28,19 @@ app.set("views", path.join(__dirname, "views"));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+
+const sessionConfig = {
+  secret: "testSecret",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    // 1 Week
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+  },
+};
+app.use(session(sessionConfig));
 
 app.use("/events", events);
 app.use("/events/:id/reviews", reviews);
