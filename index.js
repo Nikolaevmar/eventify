@@ -9,6 +9,9 @@ const methodOverride = require("method-override");
 const Event = require("./models/event");
 const Review = require("./models/review");
 
+const events = require("./routes/events");
+// const { events } = require("./models/event");
+
 mongoose.connect("mongodb://localhost:27017/eventify", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -29,8 +32,8 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
-const validateEvent = (req, res, next) => {
-  const { error } = eventSchema.validate(req.body);
+const validateReview = (req, res, next) => {
+  const { error } = reviewSchema.validate(req.body);
   if (error) {
     const msg = error.details.map((el) => el.message).join(",");
     throw new ExpressError(msg, 400);
@@ -39,77 +42,11 @@ const validateEvent = (req, res, next) => {
   }
 };
 
-const validateReview = (req, res, next) => {
-  const { error } = reviewSchema.validate(req.body);
-  if (error) {
-    const msg = error.details.map(el => el.message).join(",");
-    throw new ExpressError(msg, 400);
-  } else {
-    next();
-  }
-};
+app.use("/events", events);
 
 app.get("/", (req, res) => {
   res.render("home");
 });
-
-app.get(
-  "/events",
-  catchAsync(async (req, res) => {
-    const events = await Event.find({});
-    res.render("events/index", { events });
-  })
-);
-
-app.get("/events/new", (req, res) => {
-  res.render("events/new");
-});
-
-app.post(
-  "/events",
-  validateEvent,
-  catchAsync(async (req, res) => {
-    // if(!req.body.even) throw new ExpressError("Invalid data", 400);
-    const event = new Event(req.body.event);
-    await event.save();
-    res.redirect(`/events/${event._id}`);
-  })
-);
-
-app.get(
-  "/events/:id",
-  catchAsync(async (req, res) => {
-    const event = await Event.findById(req.params.id).populate("reviews");
-    res.render("events/show", { event });
-  })
-);
-
-app.get(
-  "/events/:id/edit",
-  catchAsync(async (req, res) => {
-    const event = await Event.findById(req.params.id);
-    res.render("events/edit", { event });
-  })
-);
-
-app.put(
-  "/events/:id",
-  validateEvent,
-  catchAsync(async (req, res) => {
-    const { id } = req.params;
-    const event = await Event.findByIdAndUpdate(id, { ...req.body.event });
-    res.redirect(`/events/${event._id}`);
-  })
-);
-
-app.delete(
-  "/events/:id",
-  catchAsync(async (req, res) => {
-    const { id } = req.params;
-    await Event.findByIdAndDelete(id);
-    res.redirect("/events");
-  })
-);
 
 app.post(
   "/events/:id/reviews",
@@ -124,12 +61,15 @@ app.post(
   })
 );
 
-app.delete('/events/:id/reviews/:reviewId', catchAsync(async(req,res)=>{
-  const {id, reviewId} = req.params;
-  await Event.findByIdAndUpdate(id, {$pull: {reviews: reviewId}})
-  await Review.findByIdAndDelete(reviewId);
-res.redirect(`/events/${id}`);
-}))
+app.delete(
+  "/events/:id/reviews/:reviewId",
+  catchAsync(async (req, res) => {
+    const { id, reviewId } = req.params;
+    await Event.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/events/${id}`);
+  })
+);
 
 app.all("*", (req, res, next) => {
   next(new ExpressError("Page not found!", 404));
