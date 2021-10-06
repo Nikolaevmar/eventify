@@ -33,6 +33,7 @@ router.post(
   catchAsync(async (req, res) => {
     const event = new Event(req.body.event);
     await event.save();
+    req.flash("success", "Successfully made a new event!");
     res.redirect(`/events/${event._id}`);
   })
 );
@@ -41,6 +42,10 @@ router.get(
   "/:id",
   catchAsync(async (req, res) => {
     const event = await Event.findById(req.params.id).populate("reviews");
+    if (!event) {
+      req.flash("error", "Event not found!");
+      return res.redirect("/events");
+    }
     res.render("events/show", { event });
   })
 );
@@ -49,6 +54,10 @@ router.get(
   "/:id/edit",
   catchAsync(async (req, res) => {
     const event = await Event.findById(req.params.id);
+    if (!event) {
+      req.flash("error", "Event not found!");
+      return res.redirect("/events");
+    }
     res.render("events/edit", { event });
   })
 );
@@ -59,6 +68,7 @@ router.put(
   catchAsync(async (req, res) => {
     const { id } = req.params;
     const event = await Event.findByIdAndUpdate(id, { ...req.body.event });
+    req.flash("success", "Successfully updated event!");
     res.redirect(`/events/${event._id}`);
   })
 );
@@ -68,6 +78,7 @@ router.delete(
   catchAsync(async (req, res) => {
     const { id } = req.params;
     await Event.findByIdAndDelete(id);
+    req.flash("success", "Successfully deleted event!");
     res.redirect("/events");
   })
 );

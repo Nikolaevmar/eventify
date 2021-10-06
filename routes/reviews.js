@@ -28,6 +28,7 @@ router.post(
     event.reviews.push(review);
     await review.save();
     await event.save();
+    req.flash("success", "Created a new review!");
     res.redirect(`/events/${event._id}`);
   })
 );
@@ -38,6 +39,7 @@ router.delete(
     const { id, reviewId } = req.params;
     await Event.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
     await Review.findByIdAndDelete(reviewId);
+    req.flash("success", "Successfully deleted review!");
     res.redirect(`/events/${id}`);
   })
 );
