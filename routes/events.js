@@ -4,6 +4,7 @@ const catchAsync = require("../utilities/catchAsync");
 const ExpressError = require("../utilities/ExpressError");
 const Event = require("../models/event");
 const { eventSchema } = require("../validationSchemas/schemas.js");
+const { isLoggedIn } = require("../middleware");
 
 const validateEvent = (req, res, next) => {
   const { error } = eventSchema.validate(req.body);
@@ -23,12 +24,13 @@ router.get(
   })
 );
 
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn, (req, res) => {
   res.render("events/new");
 });
 
 router.post(
   "/",
+  isLoggedIn,
   validateEvent,
   catchAsync(async (req, res) => {
     const event = new Event(req.body.event);
@@ -52,6 +54,7 @@ router.get(
 
 router.get(
   "/:id/edit",
+  isLoggedIn,
   catchAsync(async (req, res) => {
     const event = await Event.findById(req.params.id);
     if (!event) {
@@ -64,6 +67,7 @@ router.get(
 
 router.put(
   "/:id",
+  isLoggedIn,
   validateEvent,
   catchAsync(async (req, res) => {
     const { id } = req.params;
@@ -75,6 +79,7 @@ router.put(
 
 router.delete(
   "/:id",
+  isLoggedIn,
   catchAsync(async (req, res) => {
     const { id } = req.params;
     await Event.findByIdAndDelete(id);
