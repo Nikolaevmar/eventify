@@ -15,13 +15,15 @@ router.post(
       const { email, username, password } = req.body;
       const user = new User({ email, username });
       const registeredUser = await User.register(user, password);
+      req.login(registeredUser, (err) => {
+        if (err) return next(err);
+        req.flash("success", "Welcome to Eventify!");
+        res.redirect("/events");
+      });
     } catch (e) {
       req.flash("error", e.message);
       res.redirect("register");
     }
-
-    req.flash("success", "Welcome to Eventify!");
-    res.redirect("/events");
   })
 );
 
@@ -40,5 +42,11 @@ router.post(
     res.redirect("/events");
   }
 );
+
+router.get("/logout", (req, res) => {
+  req.logout();
+  req.flash("success", "Goodbye!");
+  res.redirect("/");
+});
 
 module.exports = router;
