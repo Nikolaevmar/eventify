@@ -16,18 +16,15 @@
         <li class="list-group-item">Ticket price: $<%=event.ticketPrice%></li>
         <li class="list-group-item">Date: <%= event.date%></li>
       </ul>
+      <% if(currentUser && event.author.equals(currentUser._id)) {%> 
       <div class="card-body">
-        <a class="card-link btn btn-info" href="/events/<%=event._id%>/edit"
-          >Edit</a
-        >
+        <a class="card-link btn btn-info" href="/events/<%=event._id%>/edit">Edit</a>
         <form
-          class="d-inline"
-          action="/events/<%=event._id%>?_method=DELETE"
-          method="POST"
-        >
+          class="d-inline" action="/events/<%=event._id%>?_method=DELETE" method="POST">
           <button class="btn btn-danger">Delete</button>
         </form>
       </div>
+      <% } %> 
       <div class="card-footer text-muted">2 days ago</div>
     </div>
   </div>
