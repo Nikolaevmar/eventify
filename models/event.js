@@ -9,6 +9,10 @@ const EventSchema = new Schema({
   ticketPrice: Number,
   date: String,
   location: String,
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
   reviews: [
     {
       type: Schema.Types.ObjectId,

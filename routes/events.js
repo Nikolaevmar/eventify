@@ -34,6 +34,7 @@ router.post(
   validateEvent,
   catchAsync(async (req, res) => {
     const event = new Event(req.body.event);
+    event.author = req.user._id;
     await event.save();
     req.flash("success", "Successfully made a new event!");
     res.redirect(`/events/${event._id}`);
@@ -43,7 +44,9 @@ router.post(
 router.get(
   "/:id",
   catchAsync(async (req, res) => {
-    const event = await Event.findById(req.params.id).populate("reviews");
+    const event = await Event.findById(req.params.id)
+      .populate("reviews")
+      .populate("author");
     if (!event) {
       req.flash("error", "Event not found!");
       return res.redirect("/events");
@@ -87,8 +90,5 @@ router.delete(
     res.redirect("/events");
   })
 );
-
-
-
 
 module.exports = router;

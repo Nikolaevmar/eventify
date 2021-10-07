@@ -10,6 +10,9 @@
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item text-muted"><%= event.location%></li>
+        <li class="list-group-item">
+          Submitted by <%= event.author.username%>
+        </li>
         <li class="list-group-item">Ticket price: $<%=event.ticketPrice%></li>
         <li class="list-group-item">Date: <%= event.date%></li>
       </ul>
