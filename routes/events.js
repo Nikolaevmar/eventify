@@ -1,20 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const catchAsync = require("../utilities/catchAsync");
-const ExpressError = require("../utilities/ExpressError");
 const Event = require("../models/event");
-const { eventSchema } = require("../validationSchemas/schemas.js");
-const { isLoggedIn } = require("../middleware");
-
-const validateEvent = (req, res, next) => {
-  const { error } = eventSchema.validate(req.body);
-  if (error) {
-    const msg = error.details.map((el) => el.message).join(",");
-    throw new ExpressError(msg, 400);
-  } else {
-    next();
-  }
-};
+const { isLoggedIn, isAuthor, validateEvent } = require("../middleware");
 
 router.get(
   "/",
@@ -58,12 +46,15 @@ router.get(
 router.get(
   "/:id/edit",
   isLoggedIn,
+  isAuthor,
   catchAsync(async (req, res) => {
-    const event = await Event.findById(req.params.id);
+    const { id } = req.params;
+    const event = await Event.findById(id);
     if (!event) {
       req.flash("error", "Event not found!");
       return res.redirect("/events");
     }
+
     res.render("events/edit", { event });
   })
 );
@@ -71,6 +62,7 @@ router.get(
 router.put(
   "/:id",
   isLoggedIn,
+  isAuthor,
   validateEvent,
   catchAsync(async (req, res) => {
     const { id } = req.params;
@@ -83,6 +75,7 @@ router.put(
 router.delete(
   "/:id",
   isLoggedIn,
+  isAuthor,
   catchAsync(async (req, res) => {
     const { id } = req.params;
     await Event.findByIdAndDelete(id);
