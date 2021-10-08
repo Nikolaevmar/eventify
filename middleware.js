@@ -1,6 +1,7 @@
 const { eventSchema, reviewSchema } = require("./validationSchemas/schemas.js");
 const ExpressError = require("./utilities/ExpressError");
 const Event = require("./models/event");
+const Review = require('./models/review')
 
 module.exports.isLoggedIn = (req, res, next) => {
   if (!req.isAuthenticated()) {
@@ -35,6 +36,16 @@ module.exports.isAuthor = async (req, res, next) => {
   const { id } = req.params;
   const event = await Event.findById(id);
   if (!event.author.equals(req.user._id)) {
+    req.flash("error", "You do not have permission to do that!");
+    return res.redirect(`/events/${id}`);
+  }
+  next();
+};
+
+module.exports.isReviewAuthor = async (req, res, next) => {
+  const { id, reviewId } = req.params;
+  const review = await Review.findById(reviewId);
+  if (!review.author.equals(req.user._id)) {
     req.flash("error", "You do not have permission to do that!");
     return res.redirect(`/events/${id}`);
   }

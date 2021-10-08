@@ -33,7 +33,12 @@ router.get(
   "/:id",
   catchAsync(async (req, res) => {
     const event = await Event.findById(req.params.id)
-      .populate("reviews")
+      .populate({
+        path: "reviews",
+        populate: {
+          path: "author",
+        },
+      })
       .populate("author");
     if (!event) {
       req.flash("error", "Event not found!");
