@@ -1,67 +1,22 @@
 const express = require("express");
 const router = express.Router();
+const events = require("../controllers/events");
 const catchAsync = require("../utilities/catchAsync");
-const Event = require("../models/event");
 const { isLoggedIn, isAuthor, validateEvent } = require("../middleware");
 
-router.get(
-  "/",
-  catchAsync(async (req, res) => {
-    const events = await Event.find({});
-    res.render("events/index", { events });
-  })
-);
+router.get("/", catchAsync(events.index));
 
-router.get("/new", isLoggedIn, (req, res) => {
-  res.render("events/new");
-});
+router.get("/new", isLoggedIn, events.renderNewForm);
 
-router.post(
-  "/",
-  isLoggedIn,
-  validateEvent,
-  catchAsync(async (req, res) => {
-    const event = new Event(req.body.event);
-    event.author = req.user._id;
-    await event.save();
-    req.flash("success", "Successfully made a new event!");
-    res.redirect(`/events/${event._id}`);
-  })
-);
+router.post("/", isLoggedIn, validateEvent, catchAsync(events.createEvent));
 
-router.get(
-  "/:id",
-  catchAsync(async (req, res) => {
-    const event = await Event.findById(req.params.id)
-      .populate({
-        path: "reviews",
-        populate: {
-          path: "author",
-        },
-      })
-      .populate("author");
-    if (!event) {
-      req.flash("error", "Event not found!");
-      return res.redirect("/events");
-    }
-    res.render("events/show", { event });
-  })
-);
+router.get("/:id", catchAsync(events.showEvent));
 
 router.get(
   "/:id/edit",
   isLoggedIn,
   isAuthor,
-  catchAsync(async (req, res) => {
-    const { id } = req.params;
-    const event = await Event.findById(id);
-    if (!event) {
-      req.flash("error", "Event not found!");
-      return res.redirect("/events");
-    }
-
-    res.render("events/edit", { event });
-  })
+  catchAsync(events.renderEditForm)
 );
 
 router.put(
@@ -69,24 +24,14 @@ router.put(
   isLoggedIn,
   isAuthor,
   validateEvent,
-  catchAsync(async (req, res) => {
-    const { id } = req.params;
-    const event = await Event.findByIdAndUpdate(id, { ...req.body.event });
-    req.flash("success", "Successfully updated event!");
-    res.redirect(`/events/${event._id}`);
-  })
+  catchAsync(events.updateEvent)
 );
 
 router.delete(
   "/:id",
   isLoggedIn,
   isAuthor,
-  catchAsync(async (req, res) => {
-    const { id } = req.params;
-    await Event.findByIdAndDelete(id);
-    req.flash("success", "Successfully deleted event!");
-    res.redirect("/events");
-  })
+  catchAsync(events.deleteEvent)
 );
 
 module.exports = router;
