@@ -4,6 +4,7 @@ const events = require("../controllers/events");
 const catchAsync = require("../utilities/catchAsync");
 const { isLoggedIn, isAuthor, validateEvent } = require("../middleware");
 
+
 router
   .route("/")
   .get(catchAsync(events.index))
@@ -12,7 +13,7 @@ router
 router.get("/new", isLoggedIn, events.renderNewForm);
 
 router
-  .route("/id")
+  .route("/:id")
   .get(catchAsync(events.showEvent))
   .put(isLoggedIn, isAuthor, validateEvent, catchAsync(events.updateEvent))
   .delete(isLoggedIn, isAuthor, catchAsync(events.deleteEvent));
