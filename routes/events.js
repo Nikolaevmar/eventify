@@ -10,11 +10,7 @@ const { isLoggedIn, isAuthor, validateEvent } = require("../middleware");
 router
   .route("/")
   .get(catchAsync(events.index))
-  .post(upload.single("image"), (req, res) => {
-    console.log(req.file);
-    res.send("test");
-  });
-// .post(isLoggedIn, validateEvent, catchAsync(events.createEvent));
+  .post(isLoggedIn, upload.array('image'),validateEvent, catchAsync(events.createEvent));
 
 router.get("/new", isLoggedIn, events.renderNewForm);
 

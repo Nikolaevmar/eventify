@@ -11,6 +11,7 @@ module.exports.renderNewForm = (req, res) => {
 
 module.exports.createEvent = async (req, res) => {
   const event = new Event(req.body.event);
+  event.images = req.files.map((f) => ({ url: f.path, filename: f.filename }));
   event.author = req.user._id;
   await event.save();
   req.flash("success", "Successfully made a new event!");

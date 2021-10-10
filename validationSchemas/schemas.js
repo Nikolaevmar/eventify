@@ -6,7 +6,7 @@ module.exports.eventSchema = Joi.object({
     ticketPrice: Joi.number().required().min(0),
     location: Joi.string().required(),
     description: Joi.string().required(),
-    image: Joi.string().required(),
+    // image: Joi.string().required(),
     date: Joi.string().required(),
   }).required(),
 });
