@@ -17,7 +17,7 @@ router.get("/new", isLoggedIn, events.renderNewForm);
 router
   .route("/:id")
   .get(catchAsync(events.showEvent))
-  .put(isLoggedIn, isAuthor, validateEvent, catchAsync(events.updateEvent))
+  .put(isLoggedIn, isAuthor, upload.array('image'), validateEvent, catchAsync(events.updateEvent))
   .delete(isLoggedIn, isAuthor, catchAsync(events.deleteEvent));
 
 router.get(

@@ -48,6 +48,9 @@ module.exports.renderEditForm = async (req, res) => {
 module.exports.updateEvent = async (req, res) => {
   const { id } = req.params;
   const event = await Event.findByIdAndUpdate(id, { ...req.body.event });
+  const imgs = req.files.map((f) => ({ url: f.path, filename: f.filename }));
+  event.images.push(...imgs);
+  await event.save();
   req.flash("success", "Successfully updated event!");
   res.redirect(`/events/${event._id}`);
 };
