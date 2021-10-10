@@ -3,14 +3,16 @@ const router = express.Router();
 const events = require("../controllers/events");
 const catchAsync = require("../utilities/catchAsync");
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+const { storage } = require("../cloudinary");
+const upload = multer({ storage });
 const { isLoggedIn, isAuthor, validateEvent } = require("../middleware");
 
 router
   .route("/")
   .get(catchAsync(events.index))
   .post(upload.single("image"), (req, res) => {
-    res.send(req.body);
+    console.log(req.file);
+    res.send("test");
   });
 // .post(isLoggedIn, validateEvent, catchAsync(events.createEvent));
 
