@@ -11,6 +11,17 @@ const EventSchema = new Schema({
   title: String,
   description: String,
   images: [ImageSchema],
+  geometry: {
+    type: {
+      type: String,
+      enum: ["Point"],
+      required: true,
+    },
+    coordinates: {
+      type: [Number],
+      required: true,
+    },
+  },
   ticketPrice: Number,
   date: String,
   location: String,
