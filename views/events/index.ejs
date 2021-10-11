@@ -8,7 +8,11 @@
 <div class="card" mb-3>
   <div class="row">
     <div class="col-md-4">
+        <% if(event.images.length) {%> 
       <img class="img-fluid" src="<%=event.images[0].url%>" alt="" />
+      <% }else { %> 
+       <img class="img-fluid" src="https://res.cloudinary.com/dpli6i46n/image/upload/v1633956718/Eventify/qrle8j07nhyfrj9rrdbx.jpg" alt="" />
+     <%  }%> 
     </div>
     <div class="col-md-8">
       <div class="card-body">
