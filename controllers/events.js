@@ -51,6 +51,9 @@ module.exports.updateEvent = async (req, res) => {
   const imgs = req.files.map((f) => ({ url: f.path, filename: f.filename }));
   event.images.push(...imgs);
   await event.save();
+  if(req.body.deleteImages){
+   await event.updateOne({$pull: {images: {filename: {$in: req.body.deleteImages}}}})
+  }
   req.flash("success", "Successfully updated event!");
   res.redirect(`/events/${event._id}`);
 };

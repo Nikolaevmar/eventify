@@ -9,6 +9,7 @@ module.exports.eventSchema = Joi.object({
     // image: Joi.string().required(),
     date: Joi.string().required(),
   }).required(),
+  deleteImages: Joi.array()
 });
 
 module.exports.reviewSchema = Joi.object({
