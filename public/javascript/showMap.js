@@ -3,10 +3,10 @@ mapboxgl.accessToken =
 const map = new mapboxgl.Map({
   container: "map",
   style: "mapbox://styles/mapbox/streets-v11",
-  center: [-74.5, 40],
+  center: event.geometry.coordinates,
   zoom: 4,
 });
 
 new mapboxgl.Marker()
-.setLngLat([-74.5, 40])
+.setLngLat(event.geometry.coordinates)
 .addTo(map);
