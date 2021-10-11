@@ -1,4 +1,5 @@
 const Event = require("../models/event");
+const {cloudinary} = require('../cloudinary')
 
 module.exports.index = async (req, res) => {
   const events = await Event.find({});
@@ -52,6 +53,9 @@ module.exports.updateEvent = async (req, res) => {
   event.images.push(...imgs);
   await event.save();
   if(req.body.deleteImages){
+    for(let filename of req.body.deleteImages){
+      await cloudinary.uploader.destroy(filename)
+    }
    await event.updateOne({$pull: {images: {filename: {$in: req.body.deleteImages}}}})
   }
   req.flash("success", "Successfully updated event!");
