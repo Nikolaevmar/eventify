@@ -1,6 +1,6 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoibTNyY2hlbCIsImEiOiJja3VtajgwaTMwazk3MzJwZnA1NWI2Mmk5In0.5dHaComs63mxUr7HdMSINw';
 const map = new mapboxgl.Map({
-container: 'map',
+container: 'cluster-map',
 style: 'mapbox://styles/mapbox/light-v10',
 center: [23.319941,42.698334],
 zoom: 6
