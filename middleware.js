@@ -1,4 +1,4 @@
-const { eventSchema, reviewSchema } = require("./validationSchemas/schemas.js");
+const { eventSchema, reviewSchema } = require("./schemas/schemas.js");
 const ExpressError = require("./utilities/ExpressError");
 const Event = require("./models/event");
 const Review = require('./models/review')
