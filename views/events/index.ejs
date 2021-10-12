@@ -1,9 +1,6 @@
 <% layout('layouts/boilerplate') %>
 <div id="cluster-map"></div>
-<h1>All events</h1>
-<div>
-  <a href="/events/new">Add an event</a>
-</div>
+<h1 class="text-center mb-3 mt-3">Current events</h1>
 <% for(let event of events) {%>
 <div class="card mb-3">
   <div class="row">

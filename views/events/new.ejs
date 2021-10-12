@@ -1,6 +1,6 @@
 <% layout('layouts/boilerplate') %>
 <div class="row">
-  <h1 class="text-center">New Event</h1>
+  <h1 class="text-center">Create an event</h1>
   <div class="col-6 offset-3">
     <form action="/events" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
       <div class="mb-3">
@@ -72,9 +72,7 @@ placeholder="ex: Sofia, Bulgaria"
       </div>
       <div class="mb-3">
         <button class="btn btn-success">Add event</button>
-      </div>
-      <div class="mb-4">
-        <a href="/events">All events</a>
+        <a  href="/events" class="btn btn-info float-md-end">All events</a>
       </div>
     </form>
   </div>
