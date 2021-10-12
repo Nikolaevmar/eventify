@@ -7,6 +7,8 @@ ImageSchema.virtual("thumbnail").get(function () {
   return this.url.replace("/upload", "/upload/w_150/");
 });
 
+const opts = { toJSON: { virtuals: true } };
+
 const EventSchema = new Schema({
   title: String,
   description: String,
@@ -35,6 +37,12 @@ const EventSchema = new Schema({
       ref: "Review",
     },
   ],
+}, opts);
+
+
+EventSchema.virtual("properties.popUp").get(function () {
+  return `<strong><a href="/events/${this._id}">${this.title}</a><strong>
+    <p>${this.description.substring(0, 20)}...</p>`
 });
 
 //Middleware to delete leftover reviews of deleted events.
