@@ -91,8 +91,7 @@ if (err) return;
  
 map.easeTo({
 center: features[0].geometry.coordinates,
-zoom: zoom
-});
+zoom: zoom});
 }
 );
 });
@@ -115,9 +114,7 @@ coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
  
 new mapboxgl.Popup()
 .setLngLat(coordinates)
-.setHTML(
-popUp
-)
+.setHTML(popUp)
 .addTo(map);
 });
  

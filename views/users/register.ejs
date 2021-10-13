@@ -5,46 +5,20 @@
       <div class="card shadow">
         <div class="card-body">
           <h1 class="card-title text-center">Register</h1>
-          <form
-            action="/register"
-            method="POST"
-            class="validated-form"
-            novalidate
-          >
+          <form action="/register" method="POST" class="validated-form" novalidate>
             <div class="mb-3">
               <label for="username" class="form-label">Username</label>
-              <input
-                type="text"
-                class="form-control"
-                id="username"
-                name="username"
-                autofocus
-                required
-              />
+              <input type="text" class="form-control" id="username" name="username" autofocus required/>
               <div class="valid-feedback">Looks good!</div>
             </div>
             <div class="mb-3">
               <label for="email" class="form-label">E-mail</label>
-              <input
-                type="email"
-                class="form-control"
-                id="email"
-                name="email"
-                required
-              />
+              <input type="email" class="form-control" id="email" name="email" required/>
               <div class="valid-feedback">Looks good!</div>
             </div>
             <div class="mb-3">
               <label for="password" class="form-label">Password</label>
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                name="password"
-                pattern="(^(?=.*\d)(?=.*[a-zA-Z]).{4,10}$)"
-                placeholder="Between 4 & 8 characters"
-                required
-              />
+              <input type="password" class="form-control" id="password" name="password" pattern="(^(?=.*\d)(?=.*[a-zA-Z]).{4,10}$)" placeholder="Between 4 & 8 characters" required/>
               <div class="valid-feedback">Looks good!</div>
             </div>
             <button class="btn btn-success col-12">Register</button>

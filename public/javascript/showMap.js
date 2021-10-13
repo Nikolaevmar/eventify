@@ -10,8 +10,5 @@ const map = new mapboxgl.Map({
 new mapboxgl.Marker()
 .setLngLat(event.geometry.coordinates)
 .setPopup(new mapboxgl.Popup({offset: 25})
-.setHTML(
-`<h2>${event.title}`
- )
-)
+.setHTML(`<h2>${event.title}`))
 .addTo(map);

@@ -18,8 +18,7 @@ module.exports.createEvent = async (req, res) => {
     .forwardGeocode({
       query: req.body.event.location,
       limit: 1,
-    })
-    .send();
+    }).send();
   const event = new Event(req.body.event);
   event.geometry = geoData.body.features[0].geometry;
   event.images = req.files.map((f) => ({ url: f.path, filename: f.filename }));
