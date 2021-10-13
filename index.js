@@ -44,6 +44,10 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(mongoSanitize());
 app.use(helmet({ contentSecurityPolicy: false }));
+app.use(function (req, res, next) {
+  res.locals.currentUser = req.user;
+  next();
+});
 
 const sessionConfig = {
   name: "session",
