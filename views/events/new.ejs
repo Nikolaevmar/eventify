@@ -1,82 +1,94 @@
 <% layout('layouts/boilerplate') %>
 <div class="container">
-<div class="row">
-  <h1 class="text-center">Create an event</h1>
-  <div class="col-6 offset-3">
-    <form action="/events" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
-      <div class="mb-3">
-        <label class="form-label" for="title">Event title</label>
-        <input
-          class="form-control"
-          type="text"
-          id="title"
-          name="event[title]"
-          required
-        />
-        <div class="valid-feedback">Looks good!</div>
-      </div>
-      <div class="mb-3">
-        <label class="form-label" for="location">Location</label>
-        <input
-          class="form-control"
-          type="text"
-          id="location"
-          name="event[location]"
-          required
-placeholder="ex: Sofia, Bulgaria"
-        />
-        <div class="valid-feedback">Looks good!</div>
-      </div>
-  
-      <div class="input-group mb-3">
-  <input type="file" class="form-control" id="image" name="image" multiple>
-  <label class="input-group-text" for="image">Upload</label>
-</div>
-      <div class="mb-3">
-        <label class="form-label" for="description">Description</label>
-        <textarea
-          class="form-control"
-          type="text"
-          id="description"
-          name="event[description]"
-          required
-        ></textarea>
-        <div class="valid-feedback">Looks good!</div>
-      </div>
-      <div class="mb-3">
-        <label class="form-label" for="price">Ticket price</label>
-        <div class="input-group">
-          <span class="input-group-text" id="price-label">$</span>
-          <input
-            type="text"
-            class="form-control"
-            id="price"
-            placeholder="0.00"
-            aria-label="price"
-            aria-describedby="price-label"
-            name="event[ticketPrice]"
-            required
-          />
-          <div class="valid-feedback">Looks good!</div>
+  <div class="row">
+    <h1 class="text-center">Create an event</h1>
+    <div class="col-md-6 offset-md-3">
+          <form
+            action="/events"
+            method="POST"
+            novalidate
+            class="validated-form"
+            enctype="multipart/form-data"
+          >
+            <div class="mb-3">
+              <label class="form-label" for="title">Event title</label>
+              <input
+                class="form-control"
+                type="text"
+                id="title"
+                name="event[title]"
+                required
+              />
+              <div class="valid-feedback">Looks good!</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="location">Location</label>
+              <input
+                class="form-control"
+                type="text"
+                id="location"
+                name="event[location]"
+                required
+                placeholder="ex: Sofia, Bulgaria"
+              />
+              <div class="valid-feedback">Looks good!</div>
+            </div>
+
+            <div class="input-group mb-3">
+              <input
+                type="file"
+                class="form-control"
+                id="image"
+                name="image"
+                multiple
+              />
+              <label class="input-group-text" for="image">Upload</label>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="description">Description</label>
+              <textarea
+                class="form-control"
+                type="text"
+                id="description"
+                name="event[description]"
+                required
+              ></textarea>
+              <div class="valid-feedback">Looks good!</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="price">Ticket price</label>
+              <div class="input-group">
+                <span class="input-group-text" id="price-label">$</span>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="price"
+                  placeholder="0.00"
+                  aria-label="price"
+                  aria-describedby="price-label"
+                  name="event[ticketPrice]"
+                  required
+                />
+                <div class="valid-feedback">Looks good!</div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="date">Date</label>
+              <input
+                class="form-control"
+                type="date"
+                id="date"
+                name="event[date]"
+                required
+              />
+              <div class="valid-feedback">Looks good!</div>
+            </div>
+            <div class="mb-3">
+              <button class="btn btn-success">Add event</button>
+              <a href="/events" class="btn btn-info float-md-end">All events</a>
+            </div>
+          </form>
         </div>
-      </div>
-      <div class="mb-3">
-        <label class="form-label" for="date">Date</label>
-        <input
-          class="form-control"
-          type="date"
-          id="date"
-          name="event[date]"
-          required
-        />
-        <div class="valid-feedback">Looks good!</div>
-      </div>
-      <div class="mb-3">
-        <button class="btn btn-success">Add event</button>
-        <a  href="/events" class="btn btn-info float-md-end">All events</a>
-      </div>
-    </form>
+    </div>
   </div>
 </div>
-</div>
-
