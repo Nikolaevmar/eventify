@@ -1,5 +1,7 @@
 # Eventify
 
+Live: https://eventify2021.herokuapp.com/
+
 Eventify is a website where users can host and review car events. In order to leave a review or host an event you must have an account.
 
 For testing purposes:<br>Username: TestUser<br>Pwd: test11
