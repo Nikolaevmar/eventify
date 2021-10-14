@@ -1,4 +1,4 @@
-const Joi = require("Joi");
+const Joi = require("joi");
 
 module.exports.eventSchema = Joi.object({
   event: Joi.object({
