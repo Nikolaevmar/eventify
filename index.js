@@ -13,15 +13,15 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
-const helmet = require("helmet");
-const mongoSanitize = require("express-mongo-sanitize");
-const MongoStore = require("connect-mongo");
-// module that sanitizes inputs against query selector injection attacks
-const dbUrl = 'mongodb://localhost:27017/eventify'
-
 const userRoutes = require("./routes/users");
 const events = require("./routes/events");
 const reviews = require("./routes/reviews");
+const helmet = require("helmet");
+const mongoSanitize = require("express-mongo-sanitize");
+// module that sanitizes inputs against query selector injection attacks
+
+const MongoStore = require("connect-mongo");
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/eventify';
 
 mongoose.connect(dbUrl, {
   useNewUrlParser: true,
@@ -50,11 +50,13 @@ app.use(function (req, res, next) {
   next();
 });
 
+const secret = process.env.SECRET || "testSecret";
+
     const store = MongoStore.create({
       mongoUrl: dbUrl,
       touchAfter: 24 * 60 * 60,
       crypto: {
-        secret: "testSecret",
+        secret
       },
     });
 
@@ -63,7 +65,7 @@ app.use(function (req, res, next) {
 const sessionConfig = {
   store,
   name: "session",
-  secret: "testSecret",
+  secret,
   //secure; true
   resave: false,
   saveUninitialized: true,
