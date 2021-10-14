@@ -15,15 +15,15 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
+const MongoStore = require("connect-mongo");
 // module that sanitizes inputs against query selector injection attacks
-// const dbUrl = process.env.DB_URL
+const dbUrl = 'mongodb://localhost:27017/eventify'
 
 const userRoutes = require("./routes/users");
 const events = require("./routes/events");
 const reviews = require("./routes/reviews");
 
-// mongodb://localhost:27017/eventify
-mongoose.connect("mongodb://localhost:27017/eventify", {
+mongoose.connect(dbUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -50,7 +50,18 @@ app.use(function (req, res, next) {
   next();
 });
 
+    const store = MongoStore.create({
+      mongoUrl: dbUrl,
+      touchAfter: 24 * 60 * 60,
+      crypto: {
+        secret: "testSecret",
+      },
+    });
+
+
+
 const sessionConfig = {
+  store,
   name: "session",
   secret: "testSecret",
   //secure; true
