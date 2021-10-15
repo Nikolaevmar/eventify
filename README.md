@@ -9,9 +9,9 @@ For testing purposes:<br>Username: TestUser<br>Pwd: test11
 This is a CRUD project, made using Node.js, Express, MongoDB, Bootstrap, Passport.js and Cloudinary.
 
 ## Features
+* User authentication alongside sessions.
 * Users can create, edit, and remove events.
 * Users can create, edit or remove their review.
-* Each user is associated with its event and reviews.
 * Each user can see the location of all events on the map. 
 * Each hosted event will be marked on both maps.
 
