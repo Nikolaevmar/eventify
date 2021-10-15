@@ -1,4 +1,4 @@
-<nav class="navbar sticky-top navbar-expand-lg">
+<nav class="navbar sticky-top navbar-expand-md navbar-dark">
 
   <style>
     .navbar {
@@ -27,20 +27,20 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
+      <div class="navbar-nav w-100">
         <a class="nav-link" href="/">Home</a>
         <a class="nav-link" href="/events">Events</a>
         <a class="nav-link" href="/events/new">Host an event</a>
       </div>
-    </div>
-    <div class="navbar-nav ml-auto">
-      <% if(!currentUser) {%>
-      <a class="nav-link" href="/login">Login</a>
-      <a class="nav-link" href="/register">Sign up</a>
-      <% } else {%>
-      <a class="nav-link" href="#">Hello, <%= currentUser.username %></a>
-      <a class="nav-link" href="/logout">Log out</a>
-      <% } %>
+     <div class="navbar-nav ml-auto w-100 justify-content-end">
+       <% if(!currentUser) {%>
+       <a class="nav-link" href="/login">Login</a>
+       <a class="nav-link" href="/register">Sign up</a>
+       <% } else {%>
+       <a class="nav-link" href="#">Hello, <%= currentUser.username %></a>
+       <a class="nav-link" href="/logout">Log out</a>
+       <% } %>
+      </div>
     </div>
   </div>
 </nav>
