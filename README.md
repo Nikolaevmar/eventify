@@ -23,6 +23,13 @@ cd Eventify
 npm install
 ```
 
+Create a .env file in the root of the project and add the following:  
+
+```
+DB_URL='<url>'
+MAPBOX_TOKEN='<key>'
+```
+
 Run ```mongod``` in another terminal and ```nodemon index.js``` in the terminal with the project.  
 
 Then go to [localhost:3000](http://localhost:3000/).
