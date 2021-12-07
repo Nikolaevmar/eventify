@@ -36,7 +36,7 @@
           <li class="list-group-item">Ticket price: $<%=event.ticketPrice%></li>
           <li class="list-group-item">Date: <%= event.date%></li>
         </ul>
-        <% if(currentUser && event.author.equals(currentUser._id)) {%>
+        <% if(currentUser && event.author.equals(currentUser._id) || currentUser && currentUser.isAdmin == true) {%>
         <div class="card-body">
           <a class="card-link btn btn-info" href="/events/<%=event._id%>/edit">Update</a>
           <form class="d-inline" action="/events/<%=event._id%>?_method=DELETE" method="POST">
@@ -81,7 +81,7 @@
             Rated: <%= review.rating %> stars
           </p>
           <p class="card-text">Review: <%= review.body %></p>
-          <% if(currentUser && review.author.equals(currentUser._id)) {%>
+          <% if(currentUser && review.author.equals(currentUser._id) || currentUser && currentUser.isAdmin == true) {%>
           <form
             action="/events/<%=event._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
             <button class="btn btn-sm btn-danger">Delete</button>

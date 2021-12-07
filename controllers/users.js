@@ -8,6 +8,9 @@ module.exports.register = async (req, res) => {
   try {
     const { email, username, password } = req.body;
     const user = new User({ email, username });
+    if(req.body.adminPass == process.env.ADMIN_PASSWORD){
+      user.isAdmin = true;
+    }
     const registeredUser = await User.register(user, password);
     req.login(registeredUser, (err) => {
       if (err) return next(err);

@@ -8,17 +8,22 @@
           <form action="/register" method="POST" class="validated-form" novalidate>
             <div class="mb-3">
               <label for="username" class="form-label">Username</label>
-              <input type="text" class="form-control" id="username" name="username" autofocus required/>
+              <input type="text" class="form-control" id="username" name="username" placeholder="How do we call you?" autofocus required/>
               <div class="valid-feedback">Looks good!</div>
             </div>
             <div class="mb-3">
               <label for="email" class="form-label">E-mail</label>
-              <input type="email" class="form-control" id="email" name="email" required/>
+              <input type="email" class="form-control" id="email" name="email" placeholder="E-mail address" required/>
               <div class="valid-feedback">Looks good!</div>
             </div>
             <div class="mb-3">
               <label for="password" class="form-label">Password</label>
               <input type="password" class="form-control" id="password" name="password" pattern="(^(?=.*\d)(?=.*[a-zA-Z]).{4,10}$)" placeholder="4 to 8 characters including a number" required/>
+              <div class="valid-feedback">Looks good!</div>
+            </div>
+            <div class="mb-3">
+              <label for="adminPass" class="form-label">Admin code</label>
+              <input type="text" class="form-control" id="username" name="adminPass" placeholder="Only if admin" autofocus/>
               <div class="valid-feedback">Looks good!</div>
             </div>
             <button class="btn btn-success col-12">Register</button>
