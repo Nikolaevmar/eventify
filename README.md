@@ -6,12 +6,12 @@ Eventify is a website where users can host and review car events. In order to le
 
 For testing purposes:<br>Username: TestUser<br>Pwd: test11
 
-This is a CRUD project, made using Node.js, Express, MongoDB, Bootstrap, Passport.js and Cloudinary.
+This is a CRUD project, made using Node.js, Express, MongoDB and Bootstrap.
 
 ## Features
-* User authentication & Authorization alongside sessions.
-* Users can create, edit, and remove events.
-* Users can create, edit or remove their review.
+* User authentication & authorization alongside sessions.
+* Users can create, edit, update and remove events.
+* Users can create reviews and remove them if needed.
 * Each user can see the location of all events on the map. 
 * Each hosted event will be marked on both maps.
 
